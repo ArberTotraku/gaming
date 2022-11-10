@@ -12,7 +12,7 @@ let name = "";
 
 function introduction() {
   name = rs.question("Welcome to my game,what is your name?");
-  bet = Number(
+  playerCredit = Number(
     rs.question(` Hi ${name} how much do you want to bet? (Min=10€) `)
   );
 }
@@ -28,12 +28,14 @@ function getPlayerCredit() {
       console.log("Sorry we don't accept small cash on our home");
       process.exit();
     }
-    let bettingScore = rs.question(` Do you really want to bet ${bet}€?`);
+    let bettingScore = rs.question(
+      ` Do you really want to bet ${playerCredit}€?`
+    );
     if (bettingScore === "yes") {
       console.log(`Ok ${name} your credit is ${playerCredit}€`);
     }
   }
-  return playerCredit;
+  // return playerCredit;
 }
 
 function printInstructions1() {
@@ -53,7 +55,7 @@ function startGame1() {
 
   let tool = game1();
 
-  getUserInput1(tool, bet);
+  getUserInput1(tool, playerCredit);
   game1();
 }
 
@@ -63,7 +65,7 @@ function startGameWithout() {
   printInstructions1();
 
   let tool1 = game1();
-  getUserInput1(tool1);
+  getUserInput1(tool1, playerCredit);
   game1();
 }
 
