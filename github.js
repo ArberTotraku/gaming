@@ -16,26 +16,24 @@ function introduction() {
     rs.question(` Hi ${name} how much do you want to bet? (Min=10€) `)
   );
 }
-
-let bet;
-
-function getBet() {
-  if (bet < 10) {
+let playerCredit;
+function getPlayerCredit() {
+  if (playerCredit < 10) {
     console.log(`Min 10€ please,we're a big casino!`);
     let questionForMoney = rs.question("Would you like to add some more?");
     if (questionForMoney === "yes") {
       let doubt = Number(rs.question("How much then?"));
-      bet = doubt;
+      playerCredit = doubt;
     } else {
       console.log("Sorry we don't accept small cash on our home");
       process.exit();
     }
     let bettingScore = rs.question(` Do you really want to bet ${bet}€?`);
     if (bettingScore === "yes") {
-      console.log(`Ok ${name} your credit is ${bet}€`);
+      console.log(`Ok ${name} your credit is ${playerCredit}€`);
     }
   }
-  return bet;
+  return playerCredit;
 }
 
 function printInstructions1() {
@@ -49,7 +47,7 @@ function printInstructions1() {
 
 function startGame1() {
   introduction();
-  getBet();
+  getPlayerCredit();
 
   printInstructions1();
 
@@ -60,16 +58,16 @@ function startGame1() {
 }
 
 function startGameWithout() {
-  getBet();
+  getPlayerCredit();
 
   printInstructions1();
 
-  let tool = game1();
-  getUserInput1(tool, bet);
+  let tool1 = game1();
+  getUserInput1(tool1);
   game1();
 }
 
-function getUserInput1(tool, bet) {
+function getUserInput1(tool) {
   let guess;
 
   do {
@@ -77,21 +75,21 @@ function getUserInput1(tool, bet) {
 
     if (guess === tool) {
       console.log("Congrats,you won 5€");
-      bet += 5;
-      console.log(bet);
+      playerCredit += 5;
+      console.log(playerCredit);
     }
     if (guess === "red" && tool === "black") {
       console.log("Sorry you lost 5.5€");
-      bet -= 5.5;
-      console.log(bet);
+      playerCredit -= 5.5;
+      console.log(playerCredit);
     }
     if (guess === "black" && tool === "red") {
       console.log("Sorry you lost 5.5€");
-      bet -= 5.5;
-      console.log(bet);
-    } else if (bet <= 5.5) {
+      playerCredit -= 5.5;
+      console.log(playerCredit);
+    } else if (playerCredit <= 5.5) {
       console.log(
-        `Sorry,your credit is ${bet}€ \nyou have to add more in order to play`
+        `Sorry,your credit is ${playerCredit}€ \nyou have to add more in order to play`
       );
 
       let addMore = rs.question("Do you want to add more?");
@@ -99,7 +97,7 @@ function getUserInput1(tool, bet) {
         let addAgain = Number(
           rs.question("How much do you want to add this time?")
         );
-        let total = Number(bet) + Number(addAgain);
+        let total = Number(playerCredit) + Number(addAgain);
 
         console.log(`Alright ${name},your credit is: ${total}`);
       } else {
