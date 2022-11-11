@@ -36,19 +36,6 @@ function getUserInput(tool) {
 
     if (guess === tool) {
       console.log("It's a tie");
-
-      let playAgain = rs.question(
-        "Do you want to play another round? (yes/no)"
-      );
-      if (playAgain === "yes") {
-        console.log("New game");
-        startGame();
-      } else {
-        console.log("Thanks for playing!\nBye!");
-        console.log(
-          `Your points: ${playerCount} \n Computer points: ${computerCount} `
-        );
-      }
     }
     if (guess === "scissors" && tool === "paper") {
       console.log("You win scissors cut paper");
@@ -67,12 +54,12 @@ function getUserInput(tool) {
       computerCount += 1;
     }
     if (guess === "rock" && tool === "paper") {
-      console.log("You win paper fills rock");
-      playerCount += 1;
-    }
-    if (guess === "paper" && tool === "rock") {
       console.log("You lose paper fills rock");
       computerCount += 1;
+    }
+    if (guess === "paper" && tool === "rock") {
+      console.log("You win paper fills rock");
+      playerCount += 1;
     }
 
     let playMore = rs.question("Do you want to play another round? (yes/no)");

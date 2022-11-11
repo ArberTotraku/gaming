@@ -16,14 +16,15 @@ function introduction() {
     rs.question(` Hi ${name} how much do you want to bet? (Min=10€) `)
   );
 }
-let playerCredit;
+let bet;
 function getPlayerCredit() {
-  if (playerCredit < 10) {
+  console.log(playerCredit);
+  if (bet < 10) {
     console.log(`Min 10€ please,we're a big casino!`);
     let questionForMoney = rs.question("Would you like to add some more?");
     if (questionForMoney === "yes") {
       let doubt = Number(rs.question("How much then?"));
-      playerCredit = doubt;
+      bet = doubt;
     } else {
       console.log("Sorry we don't accept small cash on our home");
       process.exit();
@@ -32,12 +33,13 @@ function getPlayerCredit() {
       ` Do you really want to bet ${playerCredit}€?`
     );
     if (bettingScore === "yes") {
-      console.log(`Ok ${name} your credit is ${playerCredit}€`);
+      console.log(`Ok ${name} your credit is ${bet}€`);
     }
   }
   // return playerCredit;
 }
 
+let playerCredit = bet;
 function printInstructions1() {
   const answer = rs.question("Do you want to see the instructions? (yes/no)");
   if (answer === "yes") {
@@ -65,7 +67,7 @@ function startGameWithout() {
   printInstructions1();
 
   let tool1 = game1();
-  getUserInput1(tool1, playerCredit);
+  getUserInput1(tool1);
   game1();
 }
 
@@ -79,17 +81,13 @@ function getUserInput1(tool) {
       console.log("Congrats,you won 5€");
       playerCredit += 5;
       console.log(playerCredit);
-    }
-    if (guess === "red" && tool === "black") {
+    } else {
       console.log("Sorry you lost 5.5€");
       playerCredit -= 5.5;
       console.log(playerCredit);
     }
-    if (guess === "black" && tool === "red") {
-      console.log("Sorry you lost 5.5€");
-      playerCredit -= 5.5;
-      console.log(playerCredit);
-    } else if (playerCredit <= 5.5) {
+
+    if (playerCredit <= 5.5) {
       console.log(
         `Sorry,your credit is ${playerCredit}€ \nyou have to add more in order to play`
       );
@@ -99,11 +97,13 @@ function getUserInput1(tool) {
         let addAgain = Number(
           rs.question("How much do you want to add this time?")
         );
-        let total = Number(playerCredit) + Number(addAgain);
+        playerCredit = Number(playerCredit) + Number(addAgain);
 
-        console.log(`Alright ${name},your credit is: ${total}`);
+        console.log(`Alright ${name},your credit is: ${playerCredit}`);
       } else {
-        console.log(`Better luck next time,${name},Gamble responsibly please!`);
+        console.log(
+          `Better luck next time ${name}.\nGamble responsibly please!`
+        );
         process.exit();
       }
     }
