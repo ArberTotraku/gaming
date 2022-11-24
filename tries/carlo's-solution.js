@@ -4,16 +4,13 @@ function chooseGame() {
   nameOfPlayer = rs.question("Hi,how I can call you?");
 
   let chooseAGame = rs.question(
-    `Welcome to Totraku Gaming dear ${nameOfPlayer},you can choose a number to play: \n1.Casino Game\n2.Rock Paper Scissors\n3.Russian Roulette`
+    `Welcome to Totraku Gaming dear ${nameOfPlayer},you can choose a number to play: \n1.Casino Game\n2.Rock Paper Scissors`
   );
   if (chooseAGame === "1") {
     startGame1();
   }
   if (chooseAGame === "2") {
     startGame();
-  }
-  if (chooseAGame === "3") {
-    startGame2();
   }
 }
 
@@ -75,11 +72,11 @@ function getUserInput(tool) {
       computerCount += 1;
     }
     if (guess === "rock" && tool === "paper") {
-      console.log("You lose paper wraps rock");
+      console.log("You lose paper fills rock");
       computerCount += 1;
     }
     if (guess === "paper" && tool === "rock") {
-      console.log("You win paper wraps rock");
+      console.log("You win paper fills rock");
       playerCount += 1;
     }
 
@@ -112,31 +109,29 @@ function game1() {
   return item;
 }
 
-let name = "";
-let bet;
-let playerCredit = 0;
+let playerCredit;
 function introduction() {
   //   name = rs.question("Welcome to my game,what is your name?");
-  bet = Number(
+  playerCredit = Number(
     rs.question(` Hi ${nameOfPlayer} how much do you want to bet? (Min=10€) `)
   );
-  playerCredit = bet;
 }
 
+let bettingScore;
+
 function getPlayerCredit() {
-  if (bet < 10) {
+  if (playerCredit < 10) {
     console.log(`Min 10€ please,we're a big casino!`);
     let questionForMoney = rs.question("Would you like to add some more?");
     if (questionForMoney === "yes") {
       playerCredit = Number(rs.question("How much then?"));
-      bet = playerCredit;
     } else {
       console.log("Sorry we don't accept small cash on our home");
       process.exit();
     }
-    let bettingScore = rs.question(` Do you really want to bet ${bet}€?`);
+    bettingScore = rs.question(` Do you really want to bet ${playerCredit}€?`);
     if (bettingScore === "yes") {
-      console.log(`Ok ${nameOfPlayer} your credit is ${bet}€`);
+      console.log(`Ok ${nameOfPlayer} your credit is ${playerCredit}€`);
     }
   }
   // return playerCredit;
@@ -161,7 +156,7 @@ function startGame1() {
 
   let tool = game1();
 
-  getUserInput1(tool, playerCredit);
+  getUserInput1(tool);
   game1();
 }
 
@@ -171,7 +166,7 @@ function startGameWithout() {
   printInstructions1();
 
   let tool1 = game1();
-  getUserInput1(tool1);
+  getUserInput1(tool1, playerCredit);
   game1();
 }
 
@@ -184,11 +179,11 @@ function getUserInput1(tool) {
     if (guess === tool) {
       console.log("Congrats,you won 5€");
       playerCredit += 5;
-      console.log("Actual credit", playerCredit);
+      console.log(playerCredit);
     } else {
       console.log("Sorry you lost 5.5€");
       playerCredit -= 5.5;
-      console.log("Actual credit", playerCredit);
+      console.log(playerCredit);
     }
 
     if (playerCredit <= 5.5) {
@@ -203,10 +198,10 @@ function getUserInput1(tool) {
         );
         playerCredit = Number(playerCredit) + Number(addAgain);
 
-        console.log(`Alright ${name},your credit is: ${playerCredit}`);
+        console.log(`Alright ${nameOfPlayer},your credit is: ${playerCredit}`);
       } else {
         console.log(
-          `Better luck next time ${name}.\nGamble responsibly please!`
+          `Better luck next time ${nameOfPlayer}.\nGamble responsibly please!`
         );
         // process.exit();
         playMoreGames();
@@ -229,46 +224,6 @@ function getUserInput1(tool) {
 
 // End of SECOND GAME
 
-// Start of the THIRD GAME
-
-function game2() {
-  const array = [
-    "shoot",
-    "no-shoot",
-    "no-shoot",
-    "no-shoot",
-    "no-shoot",
-    "no-shoot",
-  ];
-  let player1game = array[Math.floor(Math.random() * array.length)];
-  console.log("random guess:", player1game);
-  if (player1game === "shoot") {
-    console.log(`Oops RIP ${nameOfPlayer}`);
-    console.log("Unfortunately you are dead,you can't play anymore this game");
-    playMoreGames();
-  } else {
-    console.log(`You survived this time,watch out next time ${nameOfPlayer}`);
-    again();
-  }
-}
-
-function again() {
-  let anotherRound = rs.question("Do you want to play another round? Yes/No");
-  if (anotherRound === "yes") {
-    game2();
-    anotherRound;
-  } else {
-    playMoreGames();
-  }
-}
-
-function startGame2() {
-  game2();
-  again();
-}
-
-// End of THIRD GAME
-
 function playMoreGames() {
   let playMoreGame = rs.question("Do you want to turn back to the menu?");
   if (playMoreGame === "no") {
@@ -282,16 +237,13 @@ function playMoreGames() {
   }
   if (playMoreGame === "yes") {
     let theQuestion = rs.question(
-      "Choose a number or exit to exit\n1.Casino game\n2.Rock Paper Scissors\n3.Russian Roulette\nexit to exit games"
+      "Choose a number or exit to exit\n1.Casino game\n2.Rock Paper Scissors\n 3.exit"
     );
     if (theQuestion === "1") {
       startGame1();
     }
     if (theQuestion === "2") {
       startGame();
-    }
-    if (theQuestion === "3") {
-      startGame2();
     }
     if (theQuestion === "exit") {
       console.log(`Thanks for playing with Totraku Gaming,see you soon`);

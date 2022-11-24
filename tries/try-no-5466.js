@@ -138,6 +138,7 @@ function getPlayerCredit() {
   // return playerCredit;
 }
 
+playerCredit += firstBet;
 function printInstructions1() {
   const answer = rs.question("Do you want to see the instructions? (yes/no)");
   if (answer === "yes") {
