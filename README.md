@@ -1,4 +1,4 @@
-# This is the final project of JavaScript in our course called DCI in Berlin.
+# Three simple games made in JavaScript.
 
 ## It contains three games where user can choose one that enjoys the most.
 
